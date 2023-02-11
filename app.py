@@ -141,13 +141,13 @@ def showmain():
 # 상세페이지 이동
 @app.route('/<int:articles_pk>')
 def detailpage(articles_pk):
-    title = db.breads.find_one({'articles_pk': 'articles_pk'})['title']
-    address = db.breads.find_one({'articles_pk': 'articles_pk'})['address']
-    star = db.breads.find_one({'articles_pk': 'articles_pk'})['star']
-    number = db.breads.find_one({'articles_pk': 'articles_pk'})['number']
-    day = db.breads.find_one({'articles_pk': 'articles_pk'})['day']
-    image = db.breads.find_one({'articles_pk': 'articles_pk'})['image']
-    best = db.breads.find_one({'articles_pk': 'articles_pk'})['best']
+    title = db.breads.find_one({'articles_pk': articles_pk})['title']
+    address = db.breads.find_one({'articles_pk': articles_pk})['address']
+    star = db.breads.find_one({'articles_pk': articles_pk})['star']
+    number = db.breads.find_one({'articles_pk': articles_pk})['number']
+    day = db.breads.find_one({'articles_pk': articles_pk})['day']
+    image = db.breads.find_one({'articles_pk': articles_pk})['image']
+    best = db.breads.find_one({'articles_pk': articles_pk})['best']
     articles_pk = db.breads.find_one(
         {'articles_pk': 'articles_pk'})['articles_pk']
     return render_template('detail.html', title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk)

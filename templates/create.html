@@ -43,7 +43,7 @@
                 <div class="input-group mb-3">
                     <input name="address" maxlength="80" type="text" class="form-control" id="address"
                         aria-label="Recipient's username" aria-describedby="button-addon2" placeholder="주소">
-                    <button onclick="transform()" class="btn" style="background-color: #D4BF8A; color: white;" id="button-addon2">주소 확인</button>
+                    <button onclick="transform()" type="button" class="btn" style="background-color: #D4BF8A; color: white;" id="button-addon2">주소 확인</button>
                 </div>
                 <div class="input-group mb-3">
                     <input id="title" type="text" class="form-control" placeholder="빵집">
@@ -90,7 +90,8 @@
             level: 3
         };
     var map = new kakao.maps.Map(mapContainer, mapOption);
-
+        var xx;
+        var yy;
     function transform() {
         var geocoder = new kakao.maps.services.Geocoder();
         var address = document.mapform.address.value
@@ -103,9 +104,9 @@
                     position: coords
                 });
                 var latlng = marker.getPosition()
-                // console.log(result)
-                document.mapform.x.value = latlng['La']
-                document.mapform.y.value = latlng['Ma']
+                console.log(latlng.La)
+                xx = latlng.La
+                yy = latlng.Ma
 
                 var infowindow = new kakao.maps.InfoWindow({});
 
@@ -136,8 +137,8 @@
 
         // let x = $('#x').text()
         // let y = $('#y').text()
-        let x = document.mapform.x.value
-        let y = document.mapform.y.value
+        let x = xx
+        let y = yy
         console.log(typeof x)
         $.ajax({
             type: 'POST',

@@ -23,7 +23,18 @@ def home():
 def detail():
     return render_template('detail.html')
 
+# 로그인 페이지 이동
+@app.route('/login')
+def login():
+    return render_template('login.html')
 
+
+# 회원가입 페이지 이동
+@app.route('/signup')
+def signup():
+    return render_template('signup.html')
+
+    
 @ app.route("/showdetail", methods=["GET"])
 def contents_get():
     contents_list = list(db.breadcontents.find({}, {'_id': False}))
@@ -58,11 +69,30 @@ def save_create():
 
     return jsonify({'msg': '추천 빵집 생성'})
 
-
+# 글작성 페이지 이동
 @ app.route('/create')
 def create():
 
     return render_template('create.html')
+
+# 메인페이지
+@app.route('/showmain', methods=['GET'])
+def showmain():
+    all_bread = list(db.breads.find({},{'_id':False}))
+    return jsonify({'msg': all_bread})
+
+
+# 상세페이지 이동
+@app.route('/<int:articles_pk>')
+def create(articles_pk):
+    title = db.breads.find_one({'articles_pk':'articles_pk'})['title']
+    address = db.breads.find_one({'articles_pk':'articles_pk'})['address']
+    star = db.breads.find_one({'articles_pk':'articles_pk'})['star']
+    number = db.breads.find_one({'articles_pk':'articles_pk'})['number']
+    day = db.breads.find_one({'articles_pk':'articles_pk'})['day']
+    image = db.breads.find_one({'articles_pk':'articles_pk'})['image']
+    articles_pk = db.breads.find_one({'articles_pk':'articles_pk'})['articles_pk']
+    return render_template('detail.html', title=title, address=address, star=star, number=number, day=day,image=image, articles_pk=articles_pk)
 
 
 if __name__ == '__main__':

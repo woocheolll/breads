@@ -1,12 +1,249 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <title> 회원가입</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap"
+          rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Noto Serif KR', serif;
+        }
+
+        .mypic {
+            width: 100%;
+            height: 200px;
+
+            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('');
+            background-position: center 30%;
+            background-size: cover;
+            background-color: #D1C097;
+
+            color: white;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+                .image-grid {
+            --gap: 16px;
+            --num-cols: 4;
+            --row-height: 300px;
+
+            box-sizing: border-box;
+            padding: var(--gap);
+
+            display: grid;
+            grid-template-columns: repeat(var(--num-cols), 1fr);
+            grid-auto-rows: var(--row-height);
+            gap: var(--gap);
+        }
+
+        .mypost {
+            width: 95%;
+            max-width: 500px;
+            margin: 20px auto 20px auto;
+
+            box-shadow: 0px 0px 3px 0px black;
+            padding: 20px;
+        }
+
+        .mypost > button {
+            margin-top: 15px;
+        }
+
+        .mycards {
+            width: 95%;
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .mycards > .card {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .w3-row {
+            /*background-color: green;*/
+            max-width: 1200px;
+            width: 95%;
+            height: 600px;
+            margin: 50px auto 0px auto ;
+        }
+        .w3-col-l {
+
+            width: 50%;
+            height: 500px;
+            object-fit: cover;
+            background-image: url('https://img.freepik.com/premium-photo/traditional-italian-pasta-with-tomato-sauce-basil-and-cheese-on-the-black-top-down-view-with-copy-space_221774-9134.jpg?w=1380');
+            background-position: center 30%;
+            background-size: cover;
+            border-radius: 10px;
+
+
+        float:left
+        }
+         .w3-col-r {
+            width: 50%;
+            height: 600px;
+
+        float:right
+        }
+         .w3-top{
+             height: 50px;
+             background-color: #9E8F72;
+             font-size: 2vh;
+             margin: auto;
+         }
+
+    </style>
+    <script>
+        let checkUserId = false
+
+        $(document).ready(function () {
+            set_temp()
+        });
+
+        function set_temp() {
+            $.ajax({
+                type: "GET",
+                url: "http://spartacodingclub.shop/sparta_api/weather/seoul",
+                data: {},
+                success: function (response) {
+                    $('#temp').text(response['temp'])
+                }
+            })
+        }
+
+        function save_sign() {
+            let id = $('#id').val()
+            let name = $('#name').val()
+            let pw = $('#pw').val()
+            let re_pw = $('#re_pw').val()
+            var RegExp = /^[a-zA-Z0-9]{4,12}$/; //id와 pw 유효성 검사 정규식
+            var n_RegExp = /^[가-힣]{1,15}$/; //이름 유효성검사 정규식
+
+
+            if (name == '') {
+                alert("이름을 입력해주세요.");
+                return false;
+            }
+            if (id == '') {
+                alert("ID를 입력해주세요.");
+                return false;
+            }
+            if (!RegExp.test(id)) { //아이디 유효성검사
+                alert("ID는 4~12자의 영문 대소문자와 숫자로만 입력하여 주세요.");
+                return false;
+            }
+            if (checkUserId == false) {
+                alert("다시 아이디 중복 확인 해주세요");
+            }
+
+            if (pw == '') { // 비밀번호 입력여부 검사
+                alert("pw를 입력해주세요.");
+                return false;
+            }
+            if (!RegExp.test(pw)) { //패스워드 유효성검사
+                alert("pw는 4~12자의 영문 대소문자와 숫자로만 입력하여 주세요.");
+                return false;
+            }
+            if (pw == id) { //패스워드와 ID가 동일한지 검사
+                alert("pw는 ID와 동일하면 안됩니다.");
+                return false;
+            }
+
+            if (pw != re_pw) { //비밀번호와 비밀번호확인이 동일한지 검사
+                alert("비밀번호가 틀립니다. 다시 확인하여 입력해주세요.");
+                return false;
+            }
+            else
+                $.ajax({
+                    type: "POST",
+                    url: "/signup/give",
+                    data: {'id_give': id, 'name_give': name, 'pw_give': pw, 're_pw_give': re_pw},
+                    success: function (response) {
+                        alert(response["msg"])
+                        window.location.replace('/')
+                    }
+                });
+        }
+
+        function checkSign() {
+            let id = $('#id').val()
+
+            $('#userList').empty()
+            $.ajax({
+                type: "GET",
+                url: "/signup/check",
+                data: {},
+                success: function (response) {
+                    let rows = response['users']
+                    let idFound = false
+                    for (let i = 0; i < rows.length; i++) {
+                        let id01 = rows[i]['id']
+                        if (id == id01) {
+                            idFound = true
+                            alert("중복된 아이디 입니다. 다시 만들어 주세요")
+                        }
+                    }
+                    if (idFound == false) {
+                        alert("중복되지 않는 아이디입니다.")
+                        checkUserId = true
+                    }
+                }
+            });
+
+        }
+
+
+
+    </script>
 </head>
 <body>
-  
+<nav class="nav">
+    <a href="/" class="nav-link active">홈페이지</a>
+    <a href="#contact" onclick="open_box()" class="nav-link active" id="contact_button">글쓰기</a>
+    <a href="/signup" class="nav-link active">회원가입</a>
+    <a href="/signin" class="nav-link active">로그인</a>
+</nav>
+    <div class="mypic">
+        <h1>회원가입</h1>
+    </div>
+    <div class="mypost">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="name" placeholder="url">
+            <label for="floatingInput">이름</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="id" placeholder="url">
+            <label for="floatingInput">아이디</label>
+            <button onclick="checkSign()" type="button" class="btn btn-dark">중복확인하기</button>
+        </div>
+{#        <p style="font-size:1em; color:red;"> 비밀번호는 특수 문자 포함 6자 이상 입니다.</p>#}
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="pw" placeholder="url" >
+            <label for="floatingInput">비밀번호</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="re_pw" placeholder="url"
+                   >
+            <label for="floatingInput">비밀번호 확인</label>
+        </div>
+        <button onclick="save_sign()" type="button" class="btn btn-dark">회원가입하기</button>
+        <button type="button" class="btn btn-dark"><a href="/">원래 페이지로 돌아가기</a></button>
+    </div>
 </body>
 </html>

@@ -11,7 +11,9 @@ ca = certifi.where()
 #     'mongodb+srv://test:sparta@cluster0.oj62xnf.mongodb.net/?retryWrites=true&w=majority')
 # db = client.bread
 
+
 client = MongoClient('mongodb+srv://test:sparta@cluster0.ynnqkbk.mongodb.net/Cluster0?retryWrites=true&w=majority', tlsCAFile = ca)
+
 db = client.dbsparta
 app = Flask(__name__)
 
@@ -112,7 +114,7 @@ def update():
     image_receive = request.form['image_give']
     articles_pk = request.form['articles_pk']
     doc = {
-        'articles_pk':articles_pk,
+        'articles_pk': articles_pk,
         'title': title_receive,
         'address': address_receive,
         'star': star_receive,
@@ -124,7 +126,9 @@ def update():
         'image': image_receive,
     }
 
+
     db.breads.update_one({'articles_pk':articles_pk},{'$set':doc})
+
     return jsonify({'msg': '수정완료!'})
 
 # 글작성 페이지 이동
@@ -155,8 +159,9 @@ def detailpage(articles_pk):
     image = db.breads.find_one({'articles_pk': articles_pk})['image']
     best = db.breads.find_one({'articles_pk': articles_pk})['best']
     articles_pk = db.breads.find_one(
-        {'articles_pk':articles_pk})['articles_pk']
-    return render_template('detail.html',best=best, title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk)
+        {'articles_pk': articles_pk})['articles_pk']
+    return render_template('detail.html', best=best, title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk)
+
 
 
 # 댓글
@@ -194,23 +199,37 @@ def comment_get():
 # 수정페이지 이동
 @app.route('/updatepage/<int:articles_pk>')
 def updatepage(articles_pk):
-    title = db.breads.find_one({'articles_pk': articles_pk})['title'] # 상호명
-    address = db.breads.find_one({'articles_pk': articles_pk})['address'] #주소
-    star = db.breads.find_one({'articles_pk': articles_pk})['star'] #평점
-    number = db.breads.find_one({'articles_pk': articles_pk})['number'] # 전화번호
-    day = db.breads.find_one({'articles_pk': articles_pk})['day'] #휴무일
-    image = db.breads.find_one({'articles_pk': articles_pk})['image'] # 이미지
-    best = db.breads.find_one({'articles_pk': articles_pk})['best'] # 베스트빵
+    title = db.breads.find_one({'articles_pk': articles_pk})['title']  # 상호명
+    address = db.breads.find_one({'articles_pk': articles_pk})['address']  # 주소
+    star = db.breads.find_one({'articles_pk': articles_pk})['star']  # 평점
+    number = db.breads.find_one({'articles_pk': articles_pk})['number']  # 전화번호
+    day = db.breads.find_one({'articles_pk': articles_pk})['day']  # 휴무일
+    image = db.breads.find_one({'articles_pk': articles_pk})['image']  # 이미지
+    best = db.breads.find_one({'articles_pk': articles_pk})['best']  # 베스트빵
     articles_pk = db.breads.find_one(
+    
+        {'articles_pk': articles_pk})['articles_pk']  # 고유번호
+    return render_template('update.html', title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk, best=best)
+
+# 빵삭제
+
         {'articles_pk': articles_pk})['articles_pk'] # 고유번호
     return render_template('update.html', title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk, best=best)
 
-#빵삭제
+
 @app.route("/detail/delete", methods=["POST"])
 def detail_delete():
     deletepk_receive = request.form["deletepk_give"]
     db.breads.delete_one({'articles_pk': int(deletepk_receive)})
     return jsonify({'msg': '삭재완료!'})
+
+# 채크코드
+
+
+@app.route('/signup/check', methods=["GET"])
+def signUpGet():
+    userList = list(db.users.find({}, {'_id': False}))
+    return jsonify({'users': userList})
 
 
 if __name__ == '__main__':

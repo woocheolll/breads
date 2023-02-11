@@ -262,5 +262,20 @@ def signUpPost():
     db.users.insert_one(doc)
     return jsonify({'msg': '가입완료!'})
 
+@app.route('/signin/give', methods=["POST"])
+def signInGive():
+    id_receive = request.form["id_give"]
+    pw_receive = request.form["pw_give"]
+
+    user = list(db.users.find({'id': id_receive}, {'_id': False}))
+    if len(user) > 0 and bcrypt.checkpw(pw_receive.encode('utf-8'), user[0]['pw'].encode('utf-8')):
+        doc = {
+            'userid': user[0]['id'],
+            'username': user[0]['name']
+        }
+        return jsonify({'error': None, 'data': doc})
+    else:
+        return jsonify({'error': 'login-fail'})
+
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5002, debug=True)

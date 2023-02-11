@@ -95,7 +95,7 @@ def save_create():
 
     return jsonify({'msg': '추천 빵집 생성'})
 
-# 수정완료
+
 @app.route('/create', methods=['PUT'])
 def update():
     title_receive = request.form['title_give']
@@ -121,6 +121,7 @@ def update():
         'image': image_receive,
     }
     db.breads.update_one({'articles_pk':'articles_pk'},{'$set':doc})
+
 # 글작성 페이지 이동
 
 
@@ -155,11 +156,33 @@ def detailpage(articles_pk):
 # 댓글
 
 
-@ app.route('/detail')
-def comment():
+@app.route("/comment", methods=["POST"])
+def comment_post():
     comment_receive = request.form['comment_give']
 
-    return render_template('detail.html')
+    count = list(db.comment.find({}, {'_id': False}))
+    num = len(count) + 1
+
+    doc = {
+        'num': num,
+        'comment': comment_receive,
+    }
+    db.comment.insert_one(doc)
+    return jsonify({'msg': '작성 완료!'})
+
+
+@app.route("/comment/delete", methods=["POST"])
+def comment_delete():
+    num_receive = request.form["num_give"]
+    db.comment.delete_one({'num': int(num_receive)})
+    return jsonify({'msg': '삭제!'})
+
+
+@app.route("/comment", methods=["GET"])
+def comment_get():
+    comments_list = list(db.comment.find({}, {'_id': False}))
+    print(comments_list)
+    return jsonify({'comments': comments_list[::-1]})
 
 
 # 수정페이지 이동

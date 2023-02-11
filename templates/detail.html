@@ -142,26 +142,28 @@
 
     </div>
 
-    <script>
-      let articles_pk = document.getElementById('articles_pk').textContent
-      console.log(articles_pk)
-      function update() {
-        location.href = '/updatepage/' + articles_pk
-      }
-      function deletepage() {
-        $.ajax({
-          type: "POST",
-          url: "/detail/delete",
-          data: {
-            deletepk_give: articles_pk,
-          },
-          success: function (response) {
-            alert(response["msg"]);
-            window.location.href = '/';
-          },
-        });
-      }
-    </script>
+
+  <script>
+    let articles_pk = document.getElementById('articles_pk').textContent
+    console.log(articles_pk)
+    function update(){
+      location.href= '/updatepage/' + articles_pk
+    }
+    function deletepage() {
+      $.ajax({
+        type: "POST",
+        url: "/detail/delete",
+        data: {
+          deletepk_give: articles_pk,
+        },
+        success: function (response) {
+          alert(response["msg"]);
+          location.href = '/';
+        },
+      });
+    }
+  </script>
+
 
 </body>
 

@@ -23,6 +23,9 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
+@ app.route('/index2')
+def home2():
+    return render_template('index2.html')
 
 @ app.route('/detail')
 def detail():
@@ -51,16 +54,17 @@ def contents_get():
 # 글작성 페이지
 @ app.route('/create', methods=["POST"])
 def save_create():
-    title_receive = request.form['title_give']
-    address_receive = request.form['address_give']
-    star_receive = request.form['star_give']
-    number_receive = request.form['number_give']
-    best_receive = request.form['best_give']
-    day_receive = request.form['day_give']
-    x_receive = request.form['x_give']
-    y_receive = request.form['y_give']
-    image_receive = request.form['image_give']
-
+    print(request.form.get('title_give'))
+    title_receive = request.form.get('title_give')
+    address_receive = request.form.get('address_give')
+    star_receive = request.form.get('star_give')
+    number_receive = request.form.get('number_give')
+    best_receive = request.form.get('best_give')
+    day_receive = request.form.get('day_give')
+    x_receive = request.form.get('x_give')
+    y_receive = request.form.get('y_give')
+    image_receive = request.form.get('image_give')
+    print(title_receive)
     count = list(db.breads.find({}, {'_id': False}))
 
     if count == []:
@@ -79,6 +83,7 @@ def save_create():
 
         }
         db.breads.insert_one(doc)
+        return jsonify({'msg': '추천 빵집 생성'})
     else:
         num1 = count[len(count)-1]
         num = num1['articles_pk']
@@ -91,29 +96,28 @@ def save_create():
             'number': number_receive,
             'best': best_receive,
             'day': day_receive,
-            # 'x': x_receive,
-            # 'y': y_receive,
+            'x': x_receive,
+            'y': y_receive,
             'image': image_receive,
 
         }
         db.breads.insert_one(doc)
-
-    return jsonify({'msg': '추천 빵집 생성'})
+        return jsonify({'msg': '추천 빵집 생성'})
 
 
 # 수정완료
 @app.route('/update', methods=['PUT'])
 def update():
-    title_receive = request.form['title_give']
-    address_receive = request.form['address_give']
-    star_receive = request.form['star_give']
-    number_receive = request.form['number_give']
-    best_receive = request.form['best_give']
-    day_receive = request.form['day_give']
-    x_receive = request.form['x_give']
-    y_receive = request.form['y_give']
-    image_receive = request.form['image_give']
-    articles_pk = request.form['articles_pk']
+    title_receive = request.form.get('title_give')
+    address_receive = request.form.get('address_give')
+    star_receive = request.form.get('star_give')
+    number_receive = request.form.get('number_give')
+    best_receive = request.form.get('best_give')
+    day_receive = request.form.get('day_give')
+    x_receive = request.form.get('x_give')
+    y_receive = request.form.get('y_give')
+    image_receive = request.form.get('image_give')
+    articles_pk = request.form.get('articles_pk_give')
     doc = {
         'articles_pk': articles_pk,
         'title': title_receive,
@@ -139,14 +143,17 @@ def create():
 
     return render_template('create.html')
 
-# 메인페이지
-
-
+# 메인페이지1
 @app.route('/showmain', methods=['GET'])
 def showmain():
     all_bread = list(db.breads.find({}, {'_id': False}))
     return jsonify({'msg': all_bread})
 
+# 메인페이지2
+@app.route('/showmain2', methods=['GET'])
+def showmain2():
+    all_bread = list(db.breads.find({}, {'_id': False}))
+    return jsonify({'msg': all_bread})
 
 # 상세페이지 이동
 @app.route('/detail/<int:articles_pk>')
@@ -217,11 +224,10 @@ def updatepage(articles_pk):
 def detail_delete():
     deletepk_receive = request.form["deletepk_give"]
     db.breads.delete_one({'articles_pk': int(deletepk_receive)})
-    return jsonify({'msg': '삭재완료!'})
+    return jsonify({'msg': '삭제완료!'})
+
 
 # 채크코드
-
-
 @app.route('/signup/check', methods=["GET"])
 def signUpGet():
     userList = list(db.users.find({}, {'_id': False}))

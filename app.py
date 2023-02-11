@@ -12,7 +12,8 @@ ca = certifi.where()
 # db = client.bread
 
 
-client = MongoClient('mongodb+srv://test:sparta@cluster0.ynnqkbk.mongodb.net/Cluster0?retryWrites=true&w=majority', tlsCAFile = ca)
+client = MongoClient(
+    'mongodb+srv://test:sparta@cluster0.ynnqkbk.mongodb.net/Cluster0?retryWrites=true&w=majority', tlsCAFile=ca)
 
 db = client.dbsparta
 app = Flask(__name__)
@@ -22,9 +23,11 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
+
 @ app.route('/index2')
 def home2():
     return render_template('index2.html')
+
 
 @ app.route('/detail')
 def detail():
@@ -130,8 +133,7 @@ def update():
         'image': image_receive,
     }
 
-
-    db.breads.update_one({'articles_pk':articles_pk},{'$set':doc})
+    db.breads.update_one({'articles_pk': articles_pk}, {'$set': doc})
 
     return jsonify({'msg': '수정완료!'})
 
@@ -144,31 +146,39 @@ def create():
     return render_template('create.html')
 
 # 메인페이지1
+
+
 @app.route('/showmain', methods=['GET'])
 def showmain():
     all_bread = list(db.breads.find({}, {'_id': False}))
     return jsonify({'msg': all_bread})
 
 # 메인페이지2
+
+
 @app.route('/showmain2', methods=['GET'])
 def showmain2():
     all_bread = list(db.breads.find({}, {'_id': False}))
     return jsonify({'msg': all_bread})
 
 # 상세페이지 이동
+
+
 @app.route('/detail/<int:articles_pk>')
 def detailpage(articles_pk):
-    title = db.breads.find_one({'articles_pk': articles_pk})['title']
-    address = db.breads.find_one({'articles_pk': articles_pk})['address']
-    star = db.breads.find_one({'articles_pk': articles_pk})['star']
-    number = db.breads.find_one({'articles_pk': articles_pk})['number']
-    day = db.breads.find_one({'articles_pk': articles_pk})['day']
-    image = db.breads.find_one({'articles_pk': articles_pk})['image']
-    best = db.breads.find_one({'articles_pk': articles_pk})['best']
-    articles_pk = db.breads.find_one(
-        {'articles_pk': articles_pk})['articles_pk']
-    return render_template('detail.html', best=best, title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk)
-
+    target = db.breads.find_one({'articles_pk': articles_pk})
+    print(target)
+    title = target['title']  # 상호명
+    address = target['address']  # 주소
+    star = target['star']  # 평점
+    number = target['number']  # 전화번호
+    day = target['day']  # 휴무일
+    image = target['image']  # 이미지
+    best = target['best']  # 베스트빵
+    x = target['x']  # 베스트빵
+    y = target['y']  # 베스트빵
+    articles_pk = target['articles_pk']  # 고유번호
+    return render_template('detail.html', best=best, title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk, x=x, y=y)
 
 
 # 댓글
@@ -206,22 +216,20 @@ def comment_get():
 # 수정페이지 이동
 @app.route('/updatepage/<int:articles_pk>')
 def updatepage(articles_pk):
-    title = db.breads.find_one({'articles_pk': articles_pk})['title']  # 상호명
-    address = db.breads.find_one({'articles_pk': articles_pk})['address']  # 주소
-    star = db.breads.find_one({'articles_pk': articles_pk})['star']  # 평점
-    number = db.breads.find_one({'articles_pk': articles_pk})['number']  # 전화번호
-    day = db.breads.find_one({'articles_pk': articles_pk})['day']  # 휴무일
-    image = db.breads.find_one({'articles_pk': articles_pk})['image']  # 이미지
-    best = db.breads.find_one({'articles_pk': articles_pk})['best']  # 베스트빵
-    articles_pk = db.breads.find_one(
-    
-        {'articles_pk': articles_pk})['articles_pk']  # 고유번호
-    return render_template('update.html', title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk, best=best)
+    target = db.breads.find_one({'articles_pk': articles_pk})
+    title = target['title']  # 상호명
+    address = target['address']  # 주소
+    star = target['star']  # 평점
+    number = target['number']  # 전화번호
+    day = target['day']  # 휴무일
+    image = target['image']  # 이미지
+    best = target['best']  # 베스트빵
+    x = target['x']  # 베스트빵
+    y = target['y']  # 베스트빵
+    articles_pk = target['articles_pk']  # 고유번호
+    return render_template('update.html', title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk, best=best, x=x, y=y)
 
 # 빵삭제
-
-        {'articles_pk': articles_pk})['articles_pk'] # 고유번호
-    return render_template('update.html', title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk, best=best)
 
 
 @app.route("/detail/delete", methods=["POST"])

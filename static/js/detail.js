@@ -3,7 +3,7 @@ $(document).ready(function () {
 });
 
 function show_detail() {
-  $('.detail_title').empty()
+
   $.ajax({
     type: "GET",
     url: "/showdetail",

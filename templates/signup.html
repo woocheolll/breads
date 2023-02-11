@@ -20,6 +20,7 @@
     <style>
         * {
             font-family: 'Noto Serif KR', serif;
+
         }
 
         .mypic {
@@ -115,7 +116,9 @@
         $(document).ready(function () {
             set_temp()
         });
-
+        function go_home(){
+            window.location.replace('/')
+        }
         function set_temp() {
             $.ajax({
                 type: "GET",
@@ -243,7 +246,7 @@
             <label for="floatingInput">비밀번호 확인</label>
         </div>
         <button onclick="save_sign()" type="button" class="btn btn-dark">회원가입하기</button>
-        <button type="button" class="btn btn-dark"><a href="/">원래 페이지로 돌아가기</a></button>
+        <button type="button" class="btn btn-dark" onclick="go_home()">돌아가기</button>
     </div>
 </body>
 </html>

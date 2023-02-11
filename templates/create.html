@@ -34,7 +34,7 @@
                     'number_give': number,
                     'day_give': day,
                     'best_give': best,
-                    {#'image_give':image,#}
+                    'image_give':image,
                     'x_give': x,
                     'y_give': y
                 },
@@ -68,11 +68,11 @@
                 <label class="input-group-text" for="inputGroupSelect01">별점</label>
                 <select class="form-select" id="star">
                     <option selected>-- 선택하기 --</option>
-                    <option value="1">⭐</option>
-                    <option value="2">⭐⭐</option>
-                    <option value="3">⭐⭐⭐</option>
-                    <option value="4">⭐⭐⭐⭐</option>
-                    <option value="5">⭐⭐⭐⭐⭐</option>
+                    <option value="1">🥖</option>
+                    <option value="2">🥖🥖</option>
+                    <option value="3">🥖🥖🥖</option>
+                    <option value="4">🥖🥖🥖🥖</option>
+                    <option value="5">🥖🥖🥖🥖🥖</option>
                 </select>
             </div>
             <div class="input-group mb-3">
@@ -87,10 +87,9 @@
                 <span class="input-group-text">휴무일</span>
                 <input id="day" type="text" class="form-control">
             </div>
-            <div class="mb-3"><label class="form-label" for="id_image">Image</label><input type="file" name="image"
-                                                                                           accept="image/*"
-                                                                                           class="form-control"
-                                                                                           id="image">
+            <div class="input-group mb-3">
+                <span class="input-group-text">image url</span>
+                <input id="image" type="text" class="form-control">
             </div>
 
             <input name="x" type="hidden" value="" id="x">

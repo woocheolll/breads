@@ -40,7 +40,7 @@ def save_create():
     day_receive = request.form['day_give']
     x_receive = request.form['x_give']
     y_receive = request.form['y_give']
-    # image_receive = request.files['image_give']
+    image_receive = request.files['image_give']
 
     doc = {
         'title': title_receive,
@@ -51,7 +51,7 @@ def save_create():
         'day': day_receive,
         'x': x_receive,
         'y': y_receive,
-        # 'image': image_receive,
+        'image': image_receive,
 
     }
     db.breads.insert_one(doc)

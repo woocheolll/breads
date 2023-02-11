@@ -15,9 +15,16 @@
     crossorigin="anonymous"></script>
   <script src="https://kit.fontawesome.com/ebc43d64e6.js" crossorigin="anonymous"></script>
   <title>빵지순례 상세 페이지</title>
+  <script>
+    let articles_pk = document.querySelector('#articles_pk').textContent
+    function update(){
+      location.href= '/' + articles_pk + '/update'
+    }
+  </script>
 </head>
 
 <body>
+  <div style="font-size: 0px;" id="articles_pk">{{articles_pk}}</div>
   <div class="detail_page">
     <div class="navbar">
       <a href="/" type="button"><i class="fa-solid fa-bread-slice"></i> 홈</a>
@@ -30,7 +37,7 @@
     <!-- 상호명, 이미지, 대표빵 -->
     <div class="post">
       <div class="detail_title">
-        <h5>상호명: 상호명 예시</h5>
+        <h5>상호명: {{title}}</h5>
       </div>
       <div class="detail_image">
         <img
@@ -42,10 +49,10 @@
       </div>
     </div>
     <!-- 버튼들 -->
-    <div class="UDbutton"">
+    <div class="UDbutton">
       
-      <button class=" btn btn-light"> 수정</button>
-      <button class="btn btn-light"> 삭재</button>
+      <button class=" btn btn-light" onclick="update()"> 수정</button>
+      <button class="btn btn-light" onclick="deletepage()"> 삭제</button>
     </div>
     <!-- 상호명, 평점, 주소, 전화번호, 휴무날 -->
     <div class=" detail_contents">

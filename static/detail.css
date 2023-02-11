@@ -4,11 +4,32 @@
 }
 
 .navbar {
+  background-color: #9E8F72;
+  padding: 10px 10px 10px 10px;
+}
+
+/* 지현님 */
+.navbar {
   width: 100%;
   background-color: #9E8F72;
   box-shadow: 0px 2px 5px 2px gray;
 }
 
+a {
+  background-color: #D4BF8A;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 2px 6px 2px 6px;
+}
+
+a:hover {
+  color: #8b7b5b;
+  border: 2px solid #8b7b5b;
+  padding: 0px 5px 1px 5px;
+}
+
+/* 지현님 */
 .post {
   background-color: #9E8F72;
   display: flex;

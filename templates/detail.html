@@ -6,29 +6,27 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../static/detail.css">
-  <link rel="stylesheet" href="">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="../static/js/detail.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/ebc43d64e6.js" crossorigin="anonymous"></script>
   <title>빵지순례 상세 페이지</title>
 </head>
 
 <body>
   <div class="detail_page">
-    <nav class="navbar">
-      <div class="container">
-        <a class="navbar-brand" href="#">
-          <img
-            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIQAAACECAMAAABmmnOVAAAA4VBMVEX////mlDQAAAD48+rpljX++fDumTbmkzD59u/79u35+PLwmzbljyX//PPmkSz///f5+fnv7+/o6OjYizHljR7lixXV1dXAwMCurq4cEgb37+PKgi7rrm9XV1c8PDxmZmYwHwuFhYVcOxVJSUm4dip8UBzx59Df39/oo1fonk1xcXGfn5+dZSSTk5MYGBjz2r8iIiJySRqIWB8pGgk5JQ2pbSYPCgPqqWTtvYsrKyvwyqO9urNJLxHx0rKbmJLV0sqBd2x7VCllVkaicj7XkUNfQiE8LRyMXy/q4dPstn7WroM8UxttAAAJSklEQVR4nO1aaXeqyhINzWCDAsY5OIVoiGLUaAZnuW+49+n7/z/oVTUoGFvFnOTc9dZif8kSDb2p2rWrGri5SZAgQYIECRIkSJAgQYIECRIkSPCruC2VK4By6en271g+W6q4LySKZuXpNzNwG+QYg2bpt1HI9UMG9w+jx/F4/Pw4Wvrh+D00ys1g/YdxO59GKAD8237Ewx+u22zalfJT9qcYZMt+EF5HbUFSJEmIQlLyD5HczFqV3E9wKLf8HDznlcP19zTab/D9HQJ/+OJ+O42SH4WHtqLwGPg0hPF7NS8IilR9H+Gv7W/NStZmFEbV9C4IRsbg0ZD8LEmQHRTJ4BsL94mFYVkNdZDqbCcpLoswO9V7+KfKd3EofaDw3yNSMFaO42wNwSikilEuyliQ9p8lAXPyTcqoMDFEtWBMgIMzMYya46w6ERbp0ZvUFQr7j89+rbi/bCCMw/iwIlPbaa2bEgpD4DLPRLKRv/tDtuYhi3FQs43+L6mjjOd4/lwSRqYAysxAVoadg3w8k7Ks1fa8pH+Qj117+Xo4fA7pIwUa2+EUWHS7xUN9Sq8vlmpFEiSl0/n2GB2E1L9IIzc7wQHUMIQiTX0uEemd2KYWJgSqBAtWai+/bhzYK8Yce8rMQQyF4+OwKBl4qtXdkZPyj4IBHxTh+RWD8QUOmIwlzyKhPuZdnlEI6Udi62EopCqxhwYaWzo/+hqLOvxbntspUpkMl4MgtQmRRXEfJWUEUu0ye2UV617LIYdWfSyIs5Dy92QBBbJzdQhFSw+UqiCL3pUkevA/VW4gzkBZEleloXukX8nCnPqRkbDdX+UYJUzG25UUfIOy6HDf3+DyX8wgFJKExhWfwq3fOB+uzIYvioVshS0kf0c8c+pHRnm/pqk9+SPMB2QDHBtkeEKHHBJ5UJ+phbWjPBBbtorBB/CLeky3KPtWO8pLClm+p7vT1bzLtQUe3kjD0rZhPt7Ji6hNjH2cYqqizyiMYUYCC3wlS8+kmjgtxAuGBH7gRUwTQ+Ppq0CpefCsWPbN5PBW9QcInJEGa1kV6UrgTVNHUMYoimGkuS7Byh3/ClLdfxJSjpuLkbCrTSkNIayLsqg5sVig+Gwz0sSkR9JSRSEg8UcsZeaOGqcCM9LA00VqdWKwAHsiDVMMWzyy8gKlpjrrWH7lohwOK1OSMMTAQuzGiQWcQA89k7FamP5nYwJ668dKxvLIJtGCPFmkTgwOaTjDRpuGolCwZWzZ58y0HyMS2QG4A6dpQXdEFtrqcqWmP1g5hD8E527c+KSKTj+GJiq8aY5hSRobqJHtxYSk37A8nGJ4AFqGyWrWmOh2jOoAp3zlb/Mgs3Vo0laG9+0BCVizt/dIPADOQZGEkbH05mWfyEIg/sXf6WH92yYk5BILXHMd6R7sP5+GRaMoONpmRmaXtiIlUMS/T3RvvMIFiHNygYUC8rFlMdI9nlFPq+1KpDqMB81L2YDfvJ7a8krVO/KyUS9WCK7pyhGjkJCESjUKyZzFKA6QzZ8nuzc7OyRkej4UMHHDXBMlAQdA0wATTejifTaXP13vWCxZnYrnCwQ7ZVNVJ0b0AFIQ5QXO/Zc44IzfPj3Q4dkaYJznQ8Hq6DMJHTioIm7vL+6Qs/XzU2V6ybR5vkyl6gd0rEMSMxNIoEfE8OzcgAyAxMnBAa9pJl5QBQr4M4k1REJfxNp4ZMGq/soLQvfkMAezGqnoosXf+URIUDqJKOfdAUF4OOVeHu36bNdn1KzhqW6pQChaEIr5mVAgiYYa8Qlo4Kqobl7Agy7fgb5lDVQS/rMxxVrxxBL3virORgI1ESVRnFMZrJLUY9wFt9muD8VdMbUpnwVacMuEAjldpn6XiYi3sKWqNYi3BcwF04zSviM2pVtuxHFsRftzTkVq5xNhA8tAMnQ35mYYFPGaZ1dbfSUupXxdYJVCZ9DOlBAOmWErL9bAIayYkz7eEAnGOkl4JXXq8EOBO4ezVYruvt61cqM416Ay3Bh9CwHjzF1+t1L1njQ1/m0QlGZFFocnI4FDGGi3WzCMQmbiQNtSsTrjDPo3jWjbUEBca33CSwiuAU1SPGkVmDBPFa1pbTt3YDgGm4Ju0Iqz+bs9vCGSxjld5W26UPwt60w+cNAFkqIGCPtWrEDglH2w2XggMzrkLsSulA5PjLxYPy1TDKFSOHUrDgccZ9z0wbk+yNrk1SlaRU8+ad2oXFuPknDjBgILtHcQYdxq5HjOGFwqrfH9CotjoYYc9HX8G2ZAt6IeFv8bcbkVApkaeOqp/gEjZsMKw8D690vMp5Yu7tUOtjZ4SU+UY0roRhX5lGkqj5FsyCJ7bBb3Xi6SUOk0wgLDvjY514tfwDoqPxKpfH+zy4a8YXd84gnixtcEuHEnetP+Aboh5egP9lgwKml8URTmZsBBNRfkKg5omE0oLKsb2cjiLpi3+8REwajJ3QZBy9yFwbKv5MB6KFgMtcJYoC31dbF2tBZ+gZ7I0Uthu6MgL9hTq+ueg82Y44PNbveCA+8bmNRKHYf9DadGbf5Zmn67ElXZVBd1FobWdU/zezio4zVoq1Rw7ex+gEqjKQq+GOH2Bqz74HGHUag5GhSlvlnsHiVfexP5acBmWGTh1PwnjliLuPu0Pmck80zq+Es6FzIZgyGTEWpDSlV502/tXiloXf+YBWVkM2VTbdgpZoxUCqbFNaaIrgqRAdwobhc47iJfazjdTjrdTm26smCzuRMj3ojtf+lJD2Zx5rFgUM2ZTrrd/85wisLF6LxTDJCqOeaOBP4yAOvZnh8Bu1f+8psdLJO2yJaleFK5FZBAwVrOEOFYKlU3TBOfoKq4Z6iXs7/2eLoywA2Kp+8dz2tuwsUog7+eZx2RkK16rG3eRdyywrItU1YD0zu63uCqjyio2C2/6bl0z3+KudiIpg6Q5eOwcyjpInuI2/iul0nKfoG91F173atUFp7Kp6HKe4ibNTaqQf/73jO63VeZD9cz9ePom57dR5KVSs/2zdH+5rc2Ku4gSqOx9iA5ahASFVx5s5iRT1R/4P2V21LPbtbrrVawWKO59rxNzgJsvEXzkMKs/jOv0OyQze1fKcIXdmazxm79Wa9cLkMyeuXSjzLYoWx/fr+r2fu9r5gxZG/LfRfSU6/ji1SlH3uPKh6Zv3X1BAkSJEiQIEGCBAn+X/A/e9PlPx11XA8AAAAASUVORK5CYII="
-            alt="" width="30" height="24">
-        </a>
-      </div>
+    <div class="navbar">
+      <a href="/" type="button"><i class="fa-solid fa-bread-slice"></i> 홈</a>
       <div>
-        <button class="btn btn-light"> 로그인</button>
+        <a href="/login" type="button" style="margin-right: 10px;">로그인</a>
+        <a href="/signup" type="button">회원가입</a>
       </div>
 
-    </nav>
+    </div>
     <!-- 상호명, 이미지, 대표빵 -->
     <div class="post">
       <div class="detail_title">

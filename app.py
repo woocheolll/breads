@@ -34,7 +34,7 @@ def login():
 def signup():
     return render_template('signup.html')
 
-    
+
 @ app.route("/showdetail", methods=["GET"])
 def contents_get():
     contents_list = list(db.breadcontents.find({}, {'_id': False}))
@@ -84,7 +84,7 @@ def showmain():
 
 # 상세페이지 이동
 @app.route('/<int:articles_pk>')
-def create(articles_pk):
+def detailpage(articles_pk):
     title = db.breads.find_one({'articles_pk':'articles_pk'})['title']
     address = db.breads.find_one({'articles_pk':'articles_pk'})['address']
     star = db.breads.find_one({'articles_pk':'articles_pk'})['star']
@@ -96,4 +96,4 @@ def create(articles_pk):
 
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
+    app.run('0.0.0.0', port=5002, debug=True)

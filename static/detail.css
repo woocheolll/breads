@@ -53,6 +53,7 @@ a:hover {
   background-color: #D4BF8A;
   text-align: center;
   border-radius: 10px;
+  color: white;
 }
 
 .post>.detail_image>img {
@@ -106,3 +107,51 @@ a:hover {
   height: 300px;
   border-radius: 10px;
 }
+
+.mybox {
+  width: 95%;
+  max-width: 700px;
+  padding: 20px;
+  
+  margin: 20px auto;
+}
+
+.mybucket {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mybucket > input {
+  width: 70%;
+}
+
+.mybox > li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 10px;
+  min-height: 48px;
+}
+
+.mybox > li > h2 {
+  max-width: 75%;
+  font-size: 20px;
+  font-weight: 500;
+  margin-right: auto;
+  margin-bottom: 0px;
+}
+
+.mybox > li > h2.done {
+  text-decoration: line-through
+}
+.button {
+  background-color:#8b7b5b;
+  border: none;
+  color: white;
+  margin-top: 10px;
+}
+

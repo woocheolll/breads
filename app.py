@@ -97,6 +97,7 @@ def save_create():
 
     return jsonify({'msg': '추천 빵집 생성'})
 
+
 # 수정완료
 @app.route('/update', methods=['PUT'])
 def update():
@@ -122,8 +123,10 @@ def update():
         'y': y_receive,
         'image': image_receive,
     }
+
     db.breads.update_one({'articles_pk':articles_pk},{'$set':doc})
     return jsonify({'msg': '수정완료!'})
+
 # 글작성 페이지 이동
 
 
@@ -152,17 +155,40 @@ def detailpage(articles_pk):
     image = db.breads.find_one({'articles_pk': articles_pk})['image']
     best = db.breads.find_one({'articles_pk': articles_pk})['best']
     articles_pk = db.breads.find_one(
-        {'articles_pk': articles_pk})['articles_pk']
-    return render_template('detail.html', title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk, best=best)
+        {'articles_pk':articles_pk})['articles_pk']
+    return render_template('detail.html',best=best, title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk)
+
 
 # 댓글
 
 
-@ app.route('/detail')
-def comment():
+@app.route("/comment", methods=["POST"])
+def comment_post():
     comment_receive = request.form['comment_give']
 
-    return render_template('detail.html')
+    count = list(db.comment.find({}, {'_id': False}))
+    num = len(count) + 1
+
+    doc = {
+        'num': num,
+        'comment': comment_receive,
+    }
+    db.comment.insert_one(doc)
+    return jsonify({'msg': '작성 완료!'})
+
+
+@app.route("/comment/delete", methods=["POST"])
+def comment_delete():
+    num_receive = request.form["num_give"]
+    db.comment.delete_one({'num': int(num_receive)})
+    return jsonify({'msg': '삭제!'})
+
+
+@app.route("/comment", methods=["GET"])
+def comment_get():
+    comments_list = list(db.comment.find({}, {'_id': False}))
+    print(comments_list)
+    return jsonify({'comments': comments_list[::-1]})
 
 
 # 수정페이지 이동
@@ -179,6 +205,12 @@ def updatepage(articles_pk):
         {'articles_pk': articles_pk})['articles_pk'] # 고유번호
     return render_template('update.html', title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk, best=best)
 
+#빵삭제
+@app.route("/detail/delete", methods=["POST"])
+def detail_delete():
+    deletepk_receive = request.form["deletepk_give"]
+    db.breads.delete_one({'articles_pk': int(deletepk_receive)})
+    return jsonify({'msg': '삭재완료!'})
 
 
 if __name__ == '__main__':

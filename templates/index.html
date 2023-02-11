@@ -33,7 +33,6 @@
             let star = rows[i].star
             let articles_pk = rows[i].articles_pk
             let star_image = '🥖'.repeat()
-
             let temp_html = `
             <div class="card card_"
               style="width: 18rem; height: 20rem; padding-top: 10px; margin-right: 40px; background-color:#9E8F72; color: white; border-radius: 5%;"
@@ -47,6 +46,7 @@
               </div>
             </div>`
             $('#card_box').append(temp_html)
+            console.log(articles_pk)
           }
         }
       });

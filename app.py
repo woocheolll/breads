@@ -150,7 +150,7 @@ def detailpage(articles_pk):
     best = db.breads.find_one({'articles_pk': articles_pk})['best']
     articles_pk = db.breads.find_one(
         {'articles_pk':articles_pk})['articles_pk']
-    return render_template('detail.html', title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk)
+    return render_template('detail.html',best=best, title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk)
 
 # 댓글
 

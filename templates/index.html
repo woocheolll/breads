@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/ebc43d64e6.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/static/index.css">
+  <title>빵지순례</title>
+  <script>
+    $(document).ready(function () {
+      mainPage()
+    });
+    function mainPage() {
+      // $('#card_box').empty()
+      $.ajax({
+        type: "GET",
+        url: "/showbook",
+        data: {},
+        success: function (response) {
+          let rows = response['msg']
+          for (let i = 0; i < rows.length; i++) {
+            let best_bread = rows[i].best
+            let title = rows[i].title
+            let image = rows[i].image
+            let star = rows[i].star
+            let articles_pk = rows[i].articles_pk
+            let star_image = '🥖'.repeat()
+
+            let temp_html = `
+            <div class="card card_"
+              style="width: 18rem; height: 20rem; padding-top: 10px; margin-right: 40px; background-color:#9E8F72; color: white; border-radius: 5%;"
+              onclick="go_detailpage(${articles_pk})" type="button">
+              <img src="${image}" class="card-img-top"
+                style="border-radius: 5%;">
+              <div class="card-body">
+                <h5 class="card-title">${title}</h5>
+                <p class="card-text" style="text-align: left;">대표빵 : ${best_bread}<br>
+                  평점 : ${star_image}</p>
+              </div>
+            </div>`
+            $('#card_box').append(temp_html)
+          }
+        }
+      });
+    }
+    function go_detailpage(articles_pk) {
+      location.href = '/' + articles_pk
+    }
+
+    function go_signup() {
+      window.location.href = '/signup'
+    }
+
+    function go_login() {
+      window.location.href = '/login'
+    }
+  </script>
+</head>
+
+<body>
+  <div class="navbar">
+
+    <a href="/" type="button"><i class="fa-regular fa-bread-loaf"></i> 홈</a>
+    <div>
+      <a href="/login" type="button" style="margin-right: 10px;">로그인</a>
+      <a href="/signup" type="button">회원가입</a>
+    </div>
+
+  </div>
+  <div class="header">
+    <header>
+      <div class="logo">
+        빵지순례
+      </div>
+      <div class="desc">
+        <p>빵 좋아하는 사람 모여라!<br>당신의 빵집을 소개해주세요</p>
+      </div>
+
+    </header>
+  </div>
+  <div class="main">
+    <div>
+      
+      <a type="button" class="create-btn" href="/create" >글 작성</a>
+
+    </div>
+    
+    <div class="cards">
+      <div class="row row-cols-1 row-cols-md-4 g-4" id="card_box" style="justify-content: center; margin-left: 20px;">
+
+        <div class="card card_"
+          style="width: 18rem; height: 20rem; padding-top: 10px; margin-right: 40px; background-color:#9E8F72; color: white; border-radius: 5%;"
+          onclick="detailpage()" type="button">
+          <img src="https://cdn.newstnt.com/news/photo/202109/99158_95602_3011.png" class="card-img-top"
+            style="border-radius: 5%;">
+          <div class="card-body">
+            <h5 class="card-title">지현빵</h5>
+            <p class="card-text" style="text-align: left;">대표빵 : 바게트<br>
+              평점 : 🥖</p>
+          </div>
+        </div>
+
+        <div class="card card_"
+          style="width: 18rem; height: 20rem; padding-top: 10px; margin-right: 40px; background-color:#9E8F72; color: white; border-radius: 5%;"
+          onclick="detailpage()" type="button">
+          <img src="https://cdn.newstnt.com/news/photo/202109/99158_95602_3011.png" class="card-img-top"
+            style="border-radius: 5%;">
+          <div class="card-body">
+            <h5 class="card-title">지현빵</h5>
+            <p class="card-text" style="text-align: left;">대표빵 : 바게트<br>
+              평점 : 🥖</p>
+          </div>
+        </div>
+
+        <div class="card card_"
+          style="width: 18rem; height: 20rem; padding-top: 10px; margin-right: 40px; background-color:#9E8F72; color: white; border-radius: 5%;"
+          onclick="detailpage()" type="button">
+          <img src="https://cdn.newstnt.com/news/photo/202109/99158_95602_3011.png" class="card-img-top"
+            style="border-radius: 5%;">
+          <div class="card-body">
+            <h5 class="card-title">지현빵</h5>
+            <p class="card-text" style="text-align: left;">대표빵 : 바게트<br>
+              평점 : 🥖</p>
+          </div>
+        </div>
+
+        <div class="card card_"
+          style="width: 18rem; height: 20rem; padding-top: 10px; margin-right: 40px; background-color:#9E8F72; color: white; border-radius: 5%;"
+          onclick="detailpage()" type="button">
+          <img src="https://cdn.newstnt.com/news/photo/202109/99158_95602_3011.png" class="card-img-top"
+            style="border-radius: 5%;">
+          <div class="card-body">
+            <h5 class="card-title">지현빵</h5>
+            <p class="card-text" style="text-align: left;">대표빵 : 바게트<br>
+              평점 : 🥖</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</body>
+
+</html>
+

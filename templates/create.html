@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <title>Document</title>
+    <script>
+        function save_create() {
+            let title = $('#title').val()
+            let address = $('#address').val()
+            let star = $('#star').val()
+            let number = $('#number').val()
+            let day = $('#day').val()
+            let best = $('#best').val()
+            {#let image = $('#image').val()#}
+            let x = $('#x').val()
+            let y = $('#y').val()
+
+            $.ajax({
+                type: 'POST',
+                url: '/create',
+                data: {
+                    'title_give': title,
+                    'address_give': address,
+                    'star_give': star,
+                    'number_give': number,
+                    'day_give': day,
+                    'best_give': best,
+                    {#'image_give':image,#}
+                    'x_give': x,
+                    'y_give': y
+                },
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.reload()
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center">빵지순례</h1>
+    <div class="order-info">
+        
+        <div id="map" class="mx-auto mb-2" style="width:500px;height:400px;"></div>
+        <form class="p-4 my-2" name="mapform" action="" method="POST" enctype="multipart/form-data">
+
+            
+            <div class="input-group mb-3"><span class="input-group-text">주소</span>
+                <input name="address" maxlength="80" type="text" class="form-control" id="address"
+                       aria-label="Recipient's username" aria-describedby="button-addon2">
+                <button onclick="transform()" class="btn btn-dark" type="button" id="button-addon2">주소 확인</button>
+            </div>
+            <div class="input-group mb-3">
+            <span class="input-group-text">빵집</span>
+            <input id="title" type="text" class="form-control">
+        </div>
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="inputGroupSelect01">별점</label>
+                <select class="form-select" id="star">
+                    <option selected>-- 선택하기 --</option>
+                    <option value="1">⭐</option>
+                    <option value="2">⭐⭐</option>
+                    <option value="3">⭐⭐⭐</option>
+                    <option value="4">⭐⭐⭐⭐</option>
+                    <option value="5">⭐⭐⭐⭐⭐</option>
+                </select>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">번호</span>
+                <input id="number" type="text" class="form-control">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">추천 빵</span>
+                <input id="best" type="text" class="form-control">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">휴무일</span>
+                <input id="day" type="text" class="form-control">
+            </div>
+            <div class="mb-3"><label class="form-label" for="id_image">Image</label><input type="file" name="image"
+                                                                                           accept="image/*"
+                                                                                           class="form-control"
+                                                                                           id="image">
+            </div>
+
+            <input name="x" type="hidden" value="" id="x">
+            <input name="y" type="hidden" value="" id="y">
+            <div class="d-flex justify-content-end">
+                <input onclick="save_create()" class="btn btn-dark mx-2" type="submit" value="제출하기">
+                <a href="" class="btn btn-outline-dark text-decoration-none ">back</a>
+            </div>
+        </form>
+    </div>
+
+</div>
+</div>
+</body>
+<script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c262112c4811d99bb369cd08f0c8ef80&libraries=clusterer&libraries=services"></script>
+<script>
+    var mapContainer = document.getElementById('map'),
+        mapOption = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667),
+            level: 3
+        };
+    var map = new kakao.maps.Map(mapContainer, mapOption);
+
+    function transform() {
+        var geocoder = new kakao.maps.services.Geocoder();
+        var address = document.mapform.address.value
+        var title = document.mapform.title.value
+        geocoder.addressSearch(`${address}`, function (result, status) {
+            if (status === kakao.maps.services.Status.OK) {
+                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: coords
+                });
+                var latlng = marker.getPosition()
+                console.log(result)
+                document.mapform.x.value = latlng['La']
+                document.mapform.y.value = latlng['Ma']
+
+                var infowindow = new kakao.maps.InfoWindow({});
+
+                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                map.setCenter(coords);
+            } else {
+                alert('정확한 주소를 입력해 주세요.')
+            }
+        });
+    }
+</script>
+</html>

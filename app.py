@@ -11,8 +11,9 @@ ca = certifi.where()
 #     'mongodb+srv://test:sparta@cluster0.oj62xnf.mongodb.net/?retryWrites=true&w=majority')
 # db = client.bread
 
-client = MongoClient(
-    'mongodb+srv://test:sparta@cluster0.ynnqkbk.mongodb.net/Cluster0?retryWrites=true&w=majority', tlsCAFile=ca)
+
+client = MongoClient('mongodb+srv://test:sparta@cluster0.ynnqkbk.mongodb.net/Cluster0?retryWrites=true&w=majority', tlsCAFile = ca)
+
 db = client.dbsparta
 app = Flask(__name__)
 
@@ -125,7 +126,9 @@ def update():
         'image': image_receive,
     }
 
-    db.breads.update_one({'articles_pk': articles_pk}, {'$set': doc})
+
+    db.breads.update_one({'articles_pk':articles_pk},{'$set':doc})
+
     return jsonify({'msg': '수정완료!'})
 
 # 글작성 페이지 이동
@@ -158,6 +161,7 @@ def detailpage(articles_pk):
     articles_pk = db.breads.find_one(
         {'articles_pk': articles_pk})['articles_pk']
     return render_template('detail.html', best=best, title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk)
+
 
 
 # 댓글
@@ -203,10 +207,14 @@ def updatepage(articles_pk):
     image = db.breads.find_one({'articles_pk': articles_pk})['image']  # 이미지
     best = db.breads.find_one({'articles_pk': articles_pk})['best']  # 베스트빵
     articles_pk = db.breads.find_one(
+    
         {'articles_pk': articles_pk})['articles_pk']  # 고유번호
     return render_template('update.html', title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk, best=best)
 
 # 빵삭제
+
+        {'articles_pk': articles_pk})['articles_pk'] # 고유번호
+    return render_template('update.html', title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk, best=best)
 
 
 @app.route("/detail/delete", methods=["POST"])

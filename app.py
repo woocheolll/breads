@@ -3,6 +3,7 @@ import certifi
 import sys
 import json
 from flask import Flask, render_template, request, jsonify
+import bcrypt as bcrypt
 
 # 이 코드 지우지말아주세요!!
 ca = certifi.where()
@@ -131,7 +132,8 @@ def update():
         'image': image_receive,
     }
 
-    db.breads.update_one({'articles_pk': articles_pk}, {'$set': doc})
+
+    db.breads.update_one({'articles_pk':articles_pk},{'$set':doc})
 
     return jsonify({'msg': '수정완료!'})
 
@@ -218,8 +220,6 @@ def updatepage(articles_pk):
     return render_template('update.html', title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk, best=best)
 
 # 빵삭제
-
-
 @app.route("/detail/delete", methods=["POST"])
 def detail_delete():
     deletepk_receive = request.form["deletepk_give"]
@@ -233,6 +233,22 @@ def signUpGet():
     userList = list(db.users.find({}, {'_id': False}))
     return jsonify({'users': userList})
 
+@app.route('/signup/give', methods=["POST"])
+def signUpPost():
+    id_receive = request.form["id_give"]
+    name_receive = request.form["name_give"]
+    pw_receive = request.form["pw_give"]
+
+    hashedPassword = bcrypt.hashpw(pw_receive.encode('utf-8'), bcrypt.gensalt())
+    hashedPassword = hashedPassword.decode()
+
+    doc = {
+    'id': id_receive,
+    'name': name_receive,
+    'pw': hashedPassword
+    }
+    db.users.insert_one(doc)
+    return jsonify({'msg': '가입완료!'})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5002, debug=True)

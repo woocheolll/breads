@@ -56,43 +56,23 @@ def save_create():
     y_receive = request.form['y_give']
     image_receive = request.form['image_give']
 
-    count = list(db.breads.find({},{'_id':False}))
+    count = list(db.breads.find({}, {'_id': False}))
 
-    if count == []:
-        articles_pk = 1
-        doc = {
-            'articles_pk':articles_pk,
-            'title': title_receive,
-            'address': address_receive,
-            'star': star_receive,
-            'number': number_receive,
-            'best': best_receive,
-            'day': day_receive,
-            'x': x_receive,
-            'y': y_receive,
-            'image': image_receive,
+    articles_pk = len(count)+1
+    doc = {
+        'articles_pk': articles_pk,
+        'title': title_receive,
+        'address': address_receive,
+        'star': star_receive,
+        'number': number_receive,
+        'best': best_receive,
+        'day': day_receive,
+        'x': x_receive,
+        'y': y_receive,
+        'image': image_receive,
 
-        }
-        db.breads.insert_one(doc)
-    else:
-        num = count[len(count)-1]
-        num = num['articles_pk']
-        articles_pk = articles_pk + 1
-        doc = {
-            'articles_pk':articles_pk,
-            'title': title_receive,
-            'address': address_receive,
-            'star': star_receive,
-            'number': number_receive,
-            'best': best_receive,
-            'day': day_receive,
-            'x': x_receive,
-            'y': y_receive,
-            'image': image_receive,
-
-        }
-        db.breads.insert_one(doc)
-
+    }
+    db.breads.insert_one(doc)
     return jsonify({'msg': '추천 빵집 생성'})
 
 # 글작성 페이지 이동
@@ -125,7 +105,15 @@ def detailpage(articles_pk):
         {'articles_pk': 'articles_pk'})['articles_pk']
     return render_template('detail.html', title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk)
 
+# 댓글
+
+
+@ app.route('/detail')
+def comment():
+    comment_receive = request.form['comment_give']
+
+    return render_template('detail.html')
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5002, debug=True)
-

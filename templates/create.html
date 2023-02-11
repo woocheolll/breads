@@ -14,6 +14,7 @@
     <title>Document</title>
     <script>
         function save_create() {
+            let articles_pk = $('#articles_pk').val()
             let title = $('#title').val()
             let address = $('#address').val()
             let star = $('#star').val()
@@ -28,6 +29,7 @@
                 type: 'POST',
                 url: '/create',
                 data: {
+                    'articles_pk':articles_pk,
                     'title_give': title,
                     'address_give': address,
                     'star_give': star,

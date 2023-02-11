@@ -176,6 +176,12 @@ def updatepage(articles_pk):
         {'articles_pk': articles_pk})['articles_pk'] # 고유번호
     return render_template('detail.html', title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk, best=best)
 
+#빵삭제
+@app.route("/detail/delete", methods=["POST"])
+def detail_delete():
+    deletepk_receive = request.form["deletepk_give"]
+    db.breads.delete_one({'articles_pk': int(deletepk_receive)})
+    return jsonify({'msg': '삭재완료!'})
 
 
 if __name__ == '__main__':

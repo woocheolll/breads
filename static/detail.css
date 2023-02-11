@@ -52,6 +52,7 @@ a:hover {
   background-color: #D4BF8A;
   text-align: center;
   border-radius: 10px;
+  color: white;
 }
 
 .post>.detail_image>img {

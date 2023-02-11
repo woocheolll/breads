@@ -22,7 +22,7 @@
     <div class="navbar">
       <a href="/" type="button"><i class="fa-solid fa-bread-slice"></i> 홈</a>
       <div>
-        <a href="/login" type="button" style="margin-right: 10px;">로그인</a>
+        <a class="btns" href="/login" type="button" style="margin-right: 10px;">로그인</a>
         <a href="/signup" type="button">회원가입</a>
       </div>
 
@@ -30,7 +30,7 @@
     <!-- 상호명, 이미지, 대표빵 -->
     <div class="post">
       <div class="detail_title">
-        <h5>상호명: 상호명 예시</h5>
+        <h5>상호명: {{title}}</h5>
       </div>
       <div class="detail_image">
         <img
@@ -49,14 +49,14 @@
     </div>
     <!-- 상호명, 평점, 주소, 전화번호, 휴무날 -->
     <div class=" detail_contents">
-      <!-- <ul>
-        <li>작성자:닉네임</li>
-        <li>상호명:상호명 예시</li>
-        <li>평점:별 3개</li>
-        <li>주소:~~~~</li>
-        <li>전화번호:010-3213-12312</li>
-        <li>휴무날:월 화 수 목 금 토 일</li>
-      </ul> -->
+      <ul class="list-group">
+        <li class="list-group-item">작성자:아직 없음</li>
+        <li class="list-group-item">상호명:{{title}}</li>
+        <li class="list-group-item">평점:{{star}}</li>
+        <li class="list-group-item">주소:{{address}}</li>
+        <li class="list-group-item">전화번호:{{number}}</li>
+        <li class="list-group-item">휴무날:{{day}}</li>
+      </ul>
     </div>
     <!-- 지도 섹션 -->
     <div class="detail_map">

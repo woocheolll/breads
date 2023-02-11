@@ -19,9 +19,9 @@ def home():
     return render_template('index.html')
 
 
-@ app.route('/detail')
+@ app.route('/detail/<articles_pk>')
 def detail():
-    return render_template('detail.html')
+    return render_template('detail.html',articles_pk=articles_pk)
 
 # 로그인 페이지 이동
 
@@ -39,7 +39,7 @@ def signup():
 
 @ app.route("/showdetail", methods=["GET"])
 def contents_get():
-    contents_list = list(db.breadcontents.find({}, {'_id': False}))
+    contents_list = list(db.breads.find({}, {'_id': False}))
     return jsonify({'contents': contents_list})
 
 
@@ -113,14 +113,14 @@ def showmain():
 
 
 # 상세페이지 이동
-@app.route('/<int:articles_pk>')
+@app.route('/detail/<int:articles_pk>')
 def detailpage(articles_pk):
-    title = db.breads.find_one({'articles_pk': 'articles_pk'})['title']
-    address = db.breads.find_one({'articles_pk': 'articles_pk'})['address']
-    star = db.breads.find_one({'articles_pk': 'articles_pk'})['star']
-    number = db.breads.find_one({'articles_pk': 'articles_pk'})['number']
-    day = db.breads.find_one({'articles_pk': 'articles_pk'})['day']
-    image = db.breads.find_one({'articles_pk': 'articles_pk'})['image']
+    title = db.breads.find_one({'articles_pk': articles_pk})['title']
+    address = db.breads.find_one({'articles_pk': articles_pk})['address']
+    star = db.breads.find_one({'articles_pk': articles_pk})['star']
+    number = db.breads.find_one({'articles_pk': articles_pk})['number']
+    day = db.breads.find_one({'articles_pk': articles_pk})['day']
+    image = db.breads.find_one({'articles_pk': articles_pk})['image']
     articles_pk = db.breads.find_one(
         {'articles_pk': 'articles_pk'})['articles_pk']
     return render_template('detail.html', title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk)

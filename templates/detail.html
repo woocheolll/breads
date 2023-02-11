@@ -15,6 +15,7 @@
     crossorigin="anonymous"></script>
   <script src="https://kit.fontawesome.com/ebc43d64e6.js" crossorigin="anonymous"></script>
   <title>빵지순례 상세 페이지</title>
+
   <script>
 
     $(document).ready(function () {
@@ -77,15 +78,15 @@
     }
 
   </script>
+
 </head>
 
 <body>
-  <div style="font-size: 0px;" id="articles_pk">{{articles_pk}}</div>
   <div class="detail_page">
     <div class="navbar">
       <a href="/" type="button"><i class="fa-solid fa-bread-slice"></i> 홈</a>
       <div>
-        <a class="btns" href="/login" type="button" style="margin-right: 10px;">로그인</a>
+        <a href="/login" type="button" style="margin-right: 10px;">로그인</a>
         <a href="/signup" type="button">회원가입</a>
       </div>
 
@@ -93,7 +94,9 @@
     <!-- 상호명, 이미지, 대표빵 -->
     <div class="post">
       <div class="detail_title">
+
         <h2>{{title}}</h2>
+
       </div>
       <div class="detail_image">
         <img src="{{image}}" class="rounded mx-auto d-block" alt="...">
@@ -118,6 +121,8 @@
         <li class="list-group-item">주소:{{address}}</li>
         <li class="list-group-item">전화번호:{{number}}</li>
         <li class="list-group-item">휴무날:{{day}}</li>
+        <div style="font-size: 0px;" id="articles_pk">{{ articles_pk }}</div>
+
       </ul>
     </div>
     <!-- 지도 섹션 -->
@@ -135,8 +140,14 @@
       </div>
 
   </div>
-    
-</div>
+
+  <script>
+    let articles_pk = document.getElementById('articles_pk').textContent
+    console.log(articles_pk)
+    function update(){
+      location.href= '/updatepage/' + articles_pk
+    }
+  </script>
 
 </body>
 

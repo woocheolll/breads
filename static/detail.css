@@ -18,13 +18,14 @@
 a {
   background-color: #D4BF8A;
   color: white;
-  text-decoration: none;
+  text-decoration: none; 
   border-radius: 10px;
   padding: 2px 6px 2px 6px;
 }
 
 a:hover {
   color: #8b7b5b;
+  text-decoration: none;
   border: 2px solid #8b7b5b;
   padding: 0px 5px 1px 5px;
 }

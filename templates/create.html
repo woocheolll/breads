@@ -12,41 +12,9 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
     <title>Document</title>
-    <script>
-        function save_create() {
-            let articles_pk = $('#articles_pk').val()
-            let title = $('#title').val()
-            let address = $('#address').val()
-            let star = $('#star').val()
-            let number = $('#number').val()
-            let day = $('#day').val()
-            let best = $('#best').val()
-            let image = $('#image').val()
-            let x = $('#x').val()
-            let y = $('#y').val()
 
-            $.ajax({
-                type: 'POST',
-                url: '/create',
-                data: {
-                    'articles_pk': articles_pk,
-                    'title_give': title,
-                    'address_give': address,
-                    'star_give': star,
-                    'number_give': number,
-                    'day_give': day,
-                    'best_give': best,
-                    'image_give': image,
-                    'x_give': x,
-                    'y_give': y
-                },
-                success: function (response) {
-                    alert(response['msg'])
-                    window.location.href = '/'
-                }
-            });
-        }
-    </script>
+    
+
 </head>
 
 <body>
@@ -101,6 +69,14 @@
             </form>
         </div>
 
+
+            <input name="x" type="hidden" value="" id="x">
+            <input name="y" type="hidden" value="" id="y">
+            <div class="d-flex justify-content-end">
+                <input onclick="save_create()" class="btn btn-dark mx-2" type="submit" value="제출하기">
+                <a href="/" class="btn btn-outline-dark text-decoration-none ">back</a>
+            </div>
+        </form>
     </div>
     </div>
 </body>
@@ -139,6 +115,37 @@
             }
         });
     }
+        function save_create() {
+            let title = $('#title').val()
+            let address = $('#address').val()
+            let star = $('#star').val()
+            let number = $('#number').val()
+            let day = $('#day').val()
+            let best = $('#best').val()
+            let image = $('#image').val()
+            let x = $('#x').text()
+            let y = $('#y').text()
+
+            $.ajax({
+                type: 'POST',
+                url: '/create',
+                data: {
+                    'title_give': title,
+                    'address_give': address,
+                    'star_give': star,
+                    'number_give': number,
+                    'day_give': day,
+                    'best_give': best,
+                    'image_give':image,
+                    'x_give': x,
+                    'y_give': y
+                },
+                success: function (response) {
+                    location.href='/'
+                    alert(response['msg'])
+                }
+            });
+        }
 </script>
 
 </html>

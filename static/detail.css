@@ -1,3 +1,7 @@
+* {
+  font-family: 'Jua', sans-serif;
+}
+
 .detail_page {
   margin: 0;
   background-color: #F9F0D6;
@@ -18,7 +22,7 @@
 a {
   background-color: #D4BF8A;
   color: white;
-  text-decoration: none; 
+  text-decoration: none;
   border-radius: 10px;
   padding: 2px 6px 2px 6px;
 }
@@ -88,10 +92,10 @@ a:hover {
   display: flex;
   flex-direction: column;
   /* justify-content: center; */
-  align-items: center;
+  /* align-items: center; */
   margin: 10px auto;
   width: 60%;
-  height: 300px;
+  height: 350px;
   border-radius: 10px;
   padding-top: 3%;
 }
@@ -104,16 +108,25 @@ a:hover {
   /* align-items: center; */
   margin: 10px auto;
   width: 60%;
-  height: 300px;
+  height: 500px;
   border-radius: 10px;
 }
 
 .mybox {
-  width: 95%;
+  background-color: #D4BF8A;
+  width: 60%;
   max-width: 700px;
   padding: 20px;
-  
   margin: 20px auto;
+  border-radius: 5px;
+}
+
+.comment {
+  border-radius: 5px;
+  background-color: #ddb756;
+  height: 40px;
+  padding-left: 5%;
+  padding-top: 1%;
 }
 
 .mybucket {
@@ -123,11 +136,11 @@ a:hover {
   justify-content: space-between;
 }
 
-.mybucket > input {
+.mybucket>input {
   width: 70%;
 }
 
-.mybox > li {
+.mybox>li {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -137,7 +150,7 @@ a:hover {
   min-height: 48px;
 }
 
-.mybox > li > h2 {
+.mybox>li>h2 {
   max-width: 75%;
   font-size: 20px;
   font-weight: 500;
@@ -145,13 +158,28 @@ a:hover {
   margin-bottom: 0px;
 }
 
-.mybox > li > h2.done {
+.mybox>li>h2.done {
   text-decoration: line-through
 }
+
 .button {
-  background-color:#8b7b5b;
+  background-color: #8b7b5b;
   border: none;
   color: white;
   margin-top: 10px;
 }
 
+.btn btn-outline-danger {
+  margin-top: 4px;
+}
+
+.list-group {
+  width: 70%;
+}
+
+.list-group {
+  margin-top: 0px;
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-bottom: 10px;
+}

@@ -23,11 +23,13 @@
             let image = $('#image').val()
             let x = $('#x').val()
             let y = $('#y').val()
+            let articles_pk = $('#articles_pk').val()
 
             $.ajax({
-                type: 'POST',
+                type: 'PUT',
                 url: '/create',
                 data: {
+                    'articles_pk':articles_pk,
                     'title_give': title,
                     'address_give': address,
                     'star_give': star,
@@ -40,13 +42,17 @@
                 },
                 success: function (response) {
                     alert(response['msg'])
-                    window.location.reload()
+                    location.href='/'+ articles_pk
                 }
             });
+        }
+        function back(){
+            location.href='/'+ articles_pk
         }
     </script>
 </head>
 <body>
+    <div style="font-size: 0px;" id="articles_pk">{{articles_pk}}</div>
 <div class="container">
     <h1 class="text-center">빵지순례</h1>
     <div class="order-info">
@@ -56,13 +62,12 @@
 
             
             <div class="input-group mb-3"><span class="input-group-text">주소</span>
-                <input name="address" maxlength="80" type="text" class="form-control" id="address"
-                       aria-label="Recipient's username" aria-describedby="button-addon2">
+                <textarea name="address" id="address" cols="30" rows="1"maxlength="80" type="text" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">{{address}}</textarea>
                 <button onclick="transform()" class="btn btn-dark" type="button" id="button-addon2">주소 확인</button>
             </div>
             <div class="input-group mb-3">
             <span class="input-group-text">빵집</span>
-            <input id="title" type="text" class="form-control">
+            <textarea id="title" type="text" class="form-control" cols="30" rows="1">{{title}}</textarea>
         </div>
             <div class="input-group mb-3">
                 <label class="input-group-text" for="inputGroupSelect01">별점</label>
@@ -77,26 +82,27 @@
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text">번호</span>
-                <input id="number" type="text" class="form-control">
+                <textarea id="number" type="text" class="form-control" cols="30" rows="1">{{number}}</textarea>
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text">추천 빵</span>
-                <input id="best" type="text" class="form-control">
+                <textarea id="best" type="text" class="form-control" cols="30" rows="1">{{best}}</textarea>
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text">휴무일</span>
+                <textarea id="day" type="text" class="form-control" cols="30" rows="1">{{day}}</textarea>
                 <input id="day" type="text" class="form-control">
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text">image url</span>
-                <input id="image" type="text" class="form-control">
+                <textarea id="image" type="text" class="form-control" cols="30" rows="1">{{image}}</textarea>
             </div>
 
             <input name="x" type="hidden" value="" id="x">
             <input name="y" type="hidden" value="" id="y">
             <div class="d-flex justify-content-end">
                 <input onclick="save_create()" class="btn btn-dark mx-2" type="submit" value="제출하기">
-                <a href="" class="btn btn-outline-dark text-decoration-none ">back</a>
+                <a onclick="back()" type="button" class="btn btn-outline-dark text-decoration-none ">back</a>
             </div>
         </form>
     </div>

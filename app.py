@@ -26,9 +26,9 @@ def detail():
 # 로그인 페이지 이동
 
 
-@app.route('/login')
+@app.route('/signin')
 def login():
-    return render_template('login.html')
+    return render_template('signin.html')
 
 
 # 회원가입 페이지 이동
@@ -43,6 +43,7 @@ def contents_get():
     return jsonify({'contents': contents_list})
 
 
+# 글작성 페이지
 @ app.route('/create', methods=["POST"])
 def save_create():
     title_receive = request.form['title_give']
@@ -55,18 +56,42 @@ def save_create():
     y_receive = request.form['y_give']
     image_receive = request.form['image_give']
 
-    doc = {
-        'title': title_receive,
-        'address': address_receive,
-        'star': star_receive,
-        'number': number_receive,
-        'best': best_receive,
-        'day': day_receive,
-        'x': x_receive,
-        'y': y_receive,
-        'image': image_receive,
-    }
-    db.breads.insert_one(doc)
+    count = list(db.breads.find({},{'_id':False}))
+
+    if count == []:
+        articles_pk = 1
+        doc = {
+            'articles_pk':articles_pk,
+            'title': title_receive,
+            'address': address_receive,
+            'star': star_receive,
+            'number': number_receive,
+            'best': best_receive,
+            'day': day_receive,
+            'x': x_receive,
+            'y': y_receive,
+            'image': image_receive,
+
+        }
+        db.breads.insert_one(doc)
+    else:
+        num = count[len(count)-1]
+        num = num['articles_pk']
+        articles_pk = articles_pk + 1
+        doc = {
+            'articles_pk':articles_pk,
+            'title': title_receive,
+            'address': address_receive,
+            'star': star_receive,
+            'number': number_receive,
+            'best': best_receive,
+            'day': day_receive,
+            'x': x_receive,
+            'y': y_receive,
+            'image': image_receive,
+
+        }
+        db.breads.insert_one(doc)
 
     return jsonify({'msg': '추천 빵집 생성'})
 
@@ -103,3 +128,4 @@ def detailpage(articles_pk):
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5002, debug=True)
+

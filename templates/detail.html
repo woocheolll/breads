@@ -15,21 +15,74 @@
     crossorigin="anonymous"></script>
   <script src="https://kit.fontawesome.com/ebc43d64e6.js" crossorigin="anonymous"></script>
   <title>빵지순례 상세 페이지</title>
+
   <script>
-    let articles_pk = document.querySelector('#articles_pk').textContent
-    function update() {
-      location.href = '/' + articles_pk + '/update'
-    }
+
+    $(document).ready(function () {
+      show_comment();
+  });
+
+  function show_comment() {
+      $('#comment-list').empty()
+      $.ajax({
+          type: "GET",
+          url: "/comment",
+          data: {},
+          success: function (response) {
+              let rows = response['comments']
+              for (let i = 0; i < rows.length; i++) {
+                  let comment = rows[i]['comment']
+                  let num = rows[i]['num']
+
+                  let temp_html = `<h3>${comment}</h3>
+                                    <button onclick="delete_comment(${num})" type="button"
+                                    class="btn btn-outline-danger mx-2">삭제!</button>
+                                    <hr>
+                   `
+                 
+                  $('#comment-list').append(temp_html)
+              }
+          }
+      });
+  }
+
+
+    function save_comment() {
+      let comment = $('#comment').val()
+      $.ajax({
+          type: "POST",
+          url: "/comment",
+          data: {comment_give: comment},
+          success: function (response) {
+              alert(response["msg"])
+              window.location.reload()
+          }
+      });
+  }
+
+    function delete_comment(num) {
+      $.ajax({
+          type: "POST",
+          url: "/comment/delete",
+          data: {'num_give': num},
+          success: function (response) {
+              alert(response["msg"])
+              window.location.reload()
+          }
+      });
+  }
+
+
   </script>
+
 </head>
 
 <body>
-  <div style="font-size: 0px;" id="articles_pk">{{articles_pk}}</div>
   <div class="detail_page">
     <div class="navbar">
       <a href="/" type="button"><i class="fa-solid fa-bread-slice"></i> 홈</a>
       <div>
-        <a class="btns" href="/login" type="button" style="margin-right: 10px;">로그인</a>
+        <a href="/login" type="button" style="margin-right: 10px;">로그인</a>
         <a href="/signup" type="button">회원가입</a>
       </div>
 
@@ -37,7 +90,9 @@
     <!-- 상호명, 이미지, 대표빵 -->
     <div class="post">
       <div class="detail_title">
+
         <h2>{{title}}</h2>
+
       </div>
       <div class="detail_image">
         <img src="{{image}}" class="rounded mx-auto d-block" alt="...">
@@ -62,13 +117,46 @@
         <li class="list-group-item">주소:{{address}}</li>
         <li class="list-group-item">전화번호:{{number}}</li>
         <li class="list-group-item">휴무날:{{day}}</li>
+        <div style="font-size: 0px;" id="articles_pk">{{ articles_pk }}</div>
+
       </ul>
     </div>
     <!-- 지도 섹션 -->
     <div class="detail_map">
       <div>지도api 불러오기</div>
     </div>
+    <div class="mybox">
+      <div class="mycomment">
+        <h2 class="mb-4">댓글</h2>
+          <input id="comment" class="form-control" type="text">
+          <button onclick="save_comment()" type="button" class="button">댓글작성</button>
+      </div>
+      <div class="" id="comment-list">
+  
+      </div>
+
   </div>
+
+  <script>
+    let articles_pk = document.getElementById('articles_pk').textContent
+    console.log(articles_pk)
+    function update(){
+      location.href= '/updatepage/' + articles_pk
+    }
+    function deletepage() {
+      $.ajax({
+        type: "POST",
+        url: "/detail/delete",
+        data: {
+          deletepk_give: articles_pk,
+        },
+        success: function (response) {
+          alert(response["msg"]);
+          window.location.href = '/';
+        },
+      });
+    }
+  </script>
 
 </body>
 

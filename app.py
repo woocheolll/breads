@@ -37,7 +37,7 @@ def save_create():
     return jsonify({'msg': '추천 빵집 생성'})
 
 
-# 메인페이지!!
+# 메인페이지
 @app.route('/showmain', methods=['GET'])
 def showmain():
     all_bread = list(db.breads.find({},{'_id':False}))

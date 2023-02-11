@@ -11,6 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static/create.css">
     <title>Document</title>
     <script>
         let articles_pk = $('#articles_pk').val()
@@ -53,25 +54,36 @@
     </script>
 </head>
 <body>
-    <div style="font-size: 1px;" id="articles_pk">{{articles_pk}}</div>
-<div class="container">
-    <h1 class="text-center">빵지순례</h1>
-    <div class="order-info">
+    <div class="navbar">
+        <a href="/index2" type="button"><i class="fa-solid fa-bread-slice"></i> 홈</a>
+        <div>
+          <a href="/signup" type="button">회원가입</a>
+        </div>
+    
+      </div>
+    <div style="font-size: 0px;" id="articles_pk">{{articles_pk}}</div>
+    <div class="header">
+        <div class="logo">
+          빵지순례
+        </div>
+      </div>
+    <div class="container">
+    <div class="order-info" style="display: flex; flex-direction: column; justify-content: center;align-items: center;">
         
-        <div id="map" class="mx-auto mb-2" style="width:500px;height:400px;"></div>
-        <form class="p-4 my-2" name="mapform" action="" method="POST" enctype="multipart/form-data">
+        <div id="map" class="mx-auto mb-2" style="width:800px;height:400px;"></div>
+        <form class="p-4 my-2" name="mapform" style="width: 850px;"method="POST" enctype="multipart/form-data">
 
             
-            <div class="input-group mb-3"><span class="input-group-text">주소</span>
+            <div class="input-group mb-3"><span class="input-group-text"style="background-color: #D4BF8A; color: white;">주소</span>
                 <textarea name="address" id="address" cols="30" rows="1"maxlength="80" type="text" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">{{address}}</textarea>
-                <button onclick="transform()" class="btn btn-dark" type="button" id="button-addon2">주소 확인</button>
+                <button onclick="transform()" class="btn btn-dark" type="button" id="button-addon2"style="background-color: #D4BF8A; color: white; border: #D4BF8A;">주소 확인</button>
             </div>
             <div class="input-group mb-3">
-            <span class="input-group-text">빵집</span>
+            <span class="input-group-text"style="background-color: #D4BF8A; color: white;">빵집</span>
             <textarea id="title" type="text" class="form-control" cols="30" rows="1">{{title}}</textarea>
         </div>
             <div class="input-group mb-3">
-                <label class="input-group-text" for="inputGroupSelect01">별점</label>
+                <label class="input-group-text" for="inputGroupSelect01" style="background-color: #D4BF8A; color: white;">별점</label>
                 <select class="form-select" id="star">
                     <option selected>-- 선택하기 --</option>
                     <option value="1">🥖</option>
@@ -82,28 +94,24 @@
                 </select>
             </div>
             <div class="input-group mb-3">
-                <span class="input-group-text">번호</span>
+                <span class="input-group-text" style="background-color: #D4BF8A; color: white;">번호</span>
                 <textarea id="number" type="text" class="form-control" cols="30" rows="1">{{number}}</textarea>
             </div>
             <div class="input-group mb-3">
-                <span class="input-group-text">추천 빵</span>
+                <span class="input-group-text"style="background-color: #D4BF8A; color: white;">추천 빵</span>
                 <textarea id="best" type="text" class="form-control" cols="30" rows="1">{{best}}</textarea>
             </div>
             <div class="input-group mb-3">
-                <span class="input-group-text">휴무일</span>
+                <span class="input-group-text"style="background-color: #D4BF8A; color: white;">휴무일</span>
                 <textarea id="day" type="text" class="form-control" cols="30" rows="1">{{day}}</textarea>
-                <input id="day" type="text" class="form-control">
             </div>
             <div class="input-group mb-3">
-                <span class="input-group-text">image url</span>
+                <span class="input-group-text"style="background-color: #D4BF8A; color: white;">이미지 url</span>
                 <textarea id="image" type="text" class="form-control" cols="30" rows="1">{{image}}</textarea>
             </div>
-
-            <input name="x" type="hidden" value="" id="x">
-            <input name="y" type="hidden" value="" id="y">
             <div class="d-flex justify-content-end">
-                <input onclick="save_create()" class="btn btn-dark mx-2" type="submit" value="수정하기">
-                <a onclick="back()" type="button" class="btn btn-outline-dark text-decoration-none ">back</a>
+                <a onclick="save_create()" type="button" style="color: white; margin-right: 10px; padding: 4px 9px 4px 9px;">수정하기</a>
+                <a onclick="back()" type="button" style="color: white">back</a>
             </div>
         </form>
     </div>

@@ -58,21 +58,41 @@ def save_create():
 
     count = list(db.breads.find({}, {'_id': False}))
 
-    articles_pk = len(count)+1
-    doc = {
-        'articles_pk': articles_pk,
-        'title': title_receive,
-        'address': address_receive,
-        'star': star_receive,
-        'number': number_receive,
-        'best': best_receive,
-        'day': day_receive,
-        'x': x_receive,
-        'y': y_receive,
-        'image': image_receive,
+    if count == []:
+        articles_pk = 1
+        doc = {
+            'articles_pk': articles_pk,
+            'title': title_receive,
+            'address': address_receive,
+            'star': star_receive,
+            'number': number_receive,
+            'best': best_receive,
+            'day': day_receive,
+            'x': x_receive,
+            'y': y_receive,
+            'image': image_receive,
 
-    }
-    db.breads.insert_one(doc)
+        }
+        db.breads.insert_one(doc)
+    else:
+        num1 = count[len(count)-1]
+        num = num1['articles_pk']
+        articles_pk = num + 1
+        doc = {
+            'articles_pk': articles_pk,
+            'title': title_receive,
+            'address': address_receive,
+            'star': star_receive,
+            'number': number_receive,
+            'best': best_receive,
+            'day': day_receive,
+            'x': x_receive,
+            'y': y_receive,
+            'image': image_receive,
+
+        }
+        db.breads.insert_one(doc)
+
     return jsonify({'msg': '추천 빵집 생성'})
 
 # 글작성 페이지 이동

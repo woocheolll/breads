@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -51,7 +52,7 @@
       });
     }
     function go_detailpage(articles_pk) {
-      location.href = '/' + articles_pk
+      location.href = '/detail' + articles_pk
     }
 
     function go_signup() {
@@ -86,9 +87,9 @@
   </div>
   <div class="main">
     <div>
-      <a type="button" class="create-btn" href="/create" >글 작성</a>
+      <a type="button" class="create-btn" href="/create">글 작성</a>
     </div>
-    
+
     <div class="cards">
       <div class="row row-cols-1 row-cols-md-4 g-4" id="card_box" style="justify-content: center; margin-left: 20px;">
 

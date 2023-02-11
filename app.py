@@ -26,9 +26,9 @@ def detail():
 # 로그인 페이지 이동
 
 
-@app.route('/login')
+@app.route('/signin')
 def login():
-    return render_template('login.html')
+    return render_template('signin.html')
 
 
 # 회원가입 페이지 이동

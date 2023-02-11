@@ -165,13 +165,13 @@ def comment():
 # 수정페이지 이동
 @app.route('/<int:articles_pk>/update')
 def updatepage(articles_pk):
-    title = db.breads.find_one({'articles_pk': 'articles_pk'})['title'] # 상호명
-    address = db.breads.find_one({'articles_pk': 'articles_pk'})['address'] #주소
-    star = db.breads.find_one({'articles_pk': 'articles_pk'})['star'] #평점
-    number = db.breads.find_one({'articles_pk': 'articles_pk'})['number'] # 전화번호
-    day = db.breads.find_one({'articles_pk': 'articles_pk'})['day'] #휴무일
-    image = db.breads.find_one({'articles_pk': 'articles_pk'})['image'] # 이미지
-    best = db.breads.find_one({'articles_pk': 'articles_pk'})['best'] # 베스트빵
+    title = db.breads.find_one({'articles_pk': articles_pk})['title'] # 상호명
+    address = db.breads.find_one({'articles_pk': articles_pk})['address'] #주소
+    star = db.breads.find_one({'articles_pk': articles_pk})['star'] #평점
+    number = db.breads.find_one({'articles_pk': articles_pk})['number'] # 전화번호
+    day = db.breads.find_one({'articles_pk': articles_pk})['day'] #휴무일
+    image = db.breads.find_one({'articles_pk': articles_pk})['image'] # 이미지
+    best = db.breads.find_one({'articles_pk': articles_pk})['best'] # 베스트빵
     articles_pk = db.breads.find_one(
         {'articles_pk': 'articles_pk'})['articles_pk'] # 고유번호
     return render_template('detail.html', title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk, best=best)

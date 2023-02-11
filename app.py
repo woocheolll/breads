@@ -19,9 +19,9 @@ def home():
     return render_template('index.html')
 
 
-@ app.route('/detail')
+@ app.route('/detail/<articles_pk>')
 def detail():
-    return render_template('detail.html')
+    return render_template('detail.html',articles_pk=articles_pk)
 
 # 로그인 페이지 이동
 
@@ -39,7 +39,7 @@ def signup():
 
 @ app.route("/showdetail", methods=["GET"])
 def contents_get():
-    contents_list = list(db.breadcontents.find({}, {'_id': False}))
+    contents_list = list(db.breads.find({}, {'_id': False}))
     return jsonify({'contents': contents_list})
 
 
@@ -96,10 +96,36 @@ def save_create():
     return jsonify({'msg': '추천 빵집 생성'})
 
 
+@app.route('/create', methods=['PUT'])
+def update():
+    title_receive = request.form['title_give']
+    address_receive = request.form['address_give']
+    star_receive = request.form['star_give']
+    number_receive = request.form['number_give']
+    best_receive = request.form['best_give']
+    day_receive = request.form['day_give']
+    x_receive = request.form['x_give']
+    y_receive = request.form['y_give']
+    image_receive = request.form['image_give']
+    articles_pk = request.form['articles_pk']
+    doc = {
+        'articles_pk':articles_pk,
+        'title': title_receive,
+        'address': address_receive,
+        'star': star_receive,
+        'number': number_receive,
+        'best': best_receive,
+        'day': day_receive,
+        'x': x_receive,
+        'y': y_receive,
+        'image': image_receive,
+    }
+    db.breads.update_one({'articles_pk':'articles_pk'},{'$set':doc})
+
 # 글작성 페이지 이동
 
 
-@ app.route('/create')
+@app.route('/create')
 def create():
 
     return render_template('create.html')
@@ -114,17 +140,18 @@ def showmain():
 
 
 # 상세페이지 이동
-@app.route('/<int:articles_pk>')
+@app.route('/detail/<int:articles_pk>')
 def detailpage(articles_pk):
-    title = db.breads.find_one({'articles_pk': 'articles_pk'})['title']
-    address = db.breads.find_one({'articles_pk': 'articles_pk'})['address']
-    star = db.breads.find_one({'articles_pk': 'articles_pk'})['star']
-    number = db.breads.find_one({'articles_pk': 'articles_pk'})['number']
-    day = db.breads.find_one({'articles_pk': 'articles_pk'})['day']
-    image = db.breads.find_one({'articles_pk': 'articles_pk'})['image']
+    title = db.breads.find_one({'articles_pk': articles_pk})['title']
+    address = db.breads.find_one({'articles_pk': articles_pk})['address']
+    star = db.breads.find_one({'articles_pk': articles_pk})['star']
+    number = db.breads.find_one({'articles_pk': articles_pk})['number']
+    day = db.breads.find_one({'articles_pk': articles_pk})['day']
+    image = db.breads.find_one({'articles_pk': articles_pk})['image']
+    best = db.breads.find_one({'articles_pk': articles_pk})['best']
     articles_pk = db.breads.find_one(
-        {'articles_pk': 'articles_pk'})['articles_pk']
-    return render_template('detail.html', title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk)
+        {'articles_pk':articles_pk})['articles_pk']
+    return render_template('detail.html',best=best, title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk)
 
 # 댓글
 
@@ -156,6 +183,28 @@ def comment_get():
     comments_list = list(db.comment.find({}, {'_id': False}))
     print(comments_list)
     return jsonify({'comments': comments_list[::-1]})
+
+
+# 수정페이지 이동
+@app.route('/<int:articles_pk>/update')
+def updatepage(articles_pk):
+    title = db.breads.find_one({'articles_pk': articles_pk})['title'] # 상호명
+    address = db.breads.find_one({'articles_pk': articles_pk})['address'] #주소
+    star = db.breads.find_one({'articles_pk': articles_pk})['star'] #평점
+    number = db.breads.find_one({'articles_pk': articles_pk})['number'] # 전화번호
+    day = db.breads.find_one({'articles_pk': articles_pk})['day'] #휴무일
+    image = db.breads.find_one({'articles_pk': articles_pk})['image'] # 이미지
+    best = db.breads.find_one({'articles_pk': articles_pk})['best'] # 베스트빵
+    articles_pk = db.breads.find_one(
+        {'articles_pk': articles_pk})['articles_pk'] # 고유번호
+    return render_template('detail.html', title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk, best=best)
+
+#빵삭제
+@app.route("/detail/delete", methods=["POST"])
+def detail_delete():
+    deletepk_receive = request.form["deletepk_give"]
+    db.breads.delete_one({'articles_pk': int(deletepk_receive)})
+    return jsonify({'msg': '삭재완료!'})
 
 
 if __name__ == '__main__':

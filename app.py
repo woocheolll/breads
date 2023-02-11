@@ -4,12 +4,14 @@ import sys
 import json
 from flask import Flask, render_template, request, jsonify
 
+# 이 코드 지우지말아주세요!!
+ca = certifi.where()
+
 # client = MongoClient(
 #     'mongodb+srv://test:sparta@cluster0.oj62xnf.mongodb.net/?retryWrites=true&w=majority')
 # db = client.bread
 
-client = MongoClient(
-    'mongodb+srv://test:as123123@cluster0.nnsglfi.mongodb.net/?retryWrites=true&w=majority')
+client = MongoClient('mongodb+srv://test:sparta@cluster0.ynnqkbk.mongodb.net/Cluster0?retryWrites=true&w=majority', tlsCAFile = ca)
 db = client.dbsparta
 app = Flask(__name__)
 
@@ -19,9 +21,9 @@ def home():
     return render_template('index.html')
 
 
-@ app.route('/detail/<articles_pk>')
+@ app.route('/detail')
 def detail():
-    return render_template('detail.html',articles_pk=articles_pk)
+    return render_template('detail.html')
 
 # 로그인 페이지 이동
 
@@ -39,7 +41,7 @@ def signup():
 
 @ app.route("/showdetail", methods=["GET"])
 def contents_get():
-    contents_list = list(db.breads.find({}, {'_id': False}))
+    contents_list = list(db.breadcontents.find({}, {'_id': False}))
     return jsonify({'contents': contents_list})
 
 
@@ -86,8 +88,8 @@ def save_create():
             'number': number_receive,
             'best': best_receive,
             'day': day_receive,
-            'x': x_receive,
-            'y': y_receive,
+            # 'x': x_receive,
+            # 'y': y_receive,
             'image': image_receive,
 
         }
@@ -96,7 +98,7 @@ def save_create():
     return jsonify({'msg': '추천 빵집 생성'})
 
 # 수정완료
-@app.route('/create', methods=['PUT'])
+@app.route('/update', methods=['PUT'])
 def update():
     title_receive = request.form['title_give']
     address_receive = request.form['address_give']
@@ -120,7 +122,8 @@ def update():
         'y': y_receive,
         'image': image_receive,
     }
-    db.breads.update_one({'articles_pk':'articles_pk'},{'$set':doc})
+    db.breads.update_one({'articles_pk':articles_pk},{'$set':doc})
+    return jsonify({'msg': '수정완료!'})
 # 글작성 페이지 이동
 
 
@@ -149,8 +152,8 @@ def detailpage(articles_pk):
     image = db.breads.find_one({'articles_pk': articles_pk})['image']
     best = db.breads.find_one({'articles_pk': articles_pk})['best']
     articles_pk = db.breads.find_one(
-        {'articles_pk':articles_pk})['articles_pk']
-    return render_template('detail.html', title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk)
+        {'articles_pk': articles_pk})['articles_pk']
+    return render_template('detail.html', title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk, best=best)
 
 # 댓글
 
@@ -163,7 +166,7 @@ def comment():
 
 
 # 수정페이지 이동
-@app.route('/<int:articles_pk>/update')
+@app.route('/updatepage/<int:articles_pk>')
 def updatepage(articles_pk):
     title = db.breads.find_one({'articles_pk': articles_pk})['title'] # 상호명
     address = db.breads.find_one({'articles_pk': articles_pk})['address'] #주소
@@ -174,7 +177,7 @@ def updatepage(articles_pk):
     best = db.breads.find_one({'articles_pk': articles_pk})['best'] # 베스트빵
     articles_pk = db.breads.find_one(
         {'articles_pk': articles_pk})['articles_pk'] # 고유번호
-    return render_template('detail.html', title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk, best=best)
+    return render_template('update.html', title=title, address=address, star=star, number=number, day=day, image=image, articles_pk=articles_pk, best=best)
 
 
 
